@@ -1,11 +1,13 @@
 html body {
   background-color: #15202b;
 }
-form {
-  margin-top: 15px;
-}
 
-form {
-  border: 3px solid white;
-  border-radius: 5px;
+.inputstyle:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.inputstyle:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: white;
 }

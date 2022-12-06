@@ -1,10 +1,10 @@
 import React from "react";
 import Tweet from "./Tweet";
 
-const TweetList = ({tweetList}) => {
+const TweetList = ({list}) => {
   return (
     <div className="mt-4">
-      {tweetList.map((post) => {
+      {list.map((post) => {
         return <Tweet key={post.id} post={post} />;
       })}
     </div>

@@ -18,7 +18,7 @@ const Tweet = ({post}) => {
         <span>{post.userName}</span>
         <span>{post.date}</span>
       </div>
-      <p className="px-3 mt-1">{post.text}</p>
+      <p className="px-3 mt-1">{post.content}</p>
     </div>
   );
 };

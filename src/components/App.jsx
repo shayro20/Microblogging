@@ -1,30 +1,72 @@
-import React, {useState} from "react";
-import FormCreate from "./Form";
+import React, {useEffect, useState} from "react";
+import NavBar from "./NavBar";
+import "../styling/NavBarStyle.css";
 import "../styling/AppStyling.css";
-import TweetList from "./TweetList";
+import HomePage from "./HomePage";
+import UserPage from "./UserPage";
+import axios from "axios";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 const App = () => {
-  const [tweetList, setTweetList] = useState(() => {
-    const cookie = JSON.parse(localStorage.getItem("tweetList"));
-    return cookie || [];
+  const [myName, setMyName] = useState(() => {
+    const user = localStorage.getItem("name");
+    return user;
   });
-  const addTweet = (newTweet) => {
-    console.log(newTweet);
-    const tweetCreate = [newTweet, ...tweetList];
-    setTweetList(tweetCreate);
-    cookies(tweetCreate);
+
+  const url =
+    "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet";
+  const [onOff, setOnOff] = useState(false);
+  const [tweetList, setTweetList] = useState([]);
+  const addTweet = async (newTweet) => {
+    await setOnOff(true);
+    try {
+      await axios.post(url, newTweet);
+    } catch (error) {
+      console.log(error);
+    }
+    getTweet();
   };
-  const cookies = (tweetCreate) => {
-    localStorage.setItem("tweetList", JSON.stringify(tweetCreate));
-    console.log(tweetCreate);
+  const getTweet = async () => {
+    try {
+      const response = await axios.get(url);
+      setTweetList(response.data.tweets);
+    } catch (error) {
+      console.log(error);
+    }
+    setOnOff(false);
+  };
+
+  useEffect(() => {
+    console.log("called");
+    setOnOff(true);
+    getTweet();
+  }, []);
+  const getMyUserName = (myUser) => {
+    setMyName(myUser);
+    localStorage.setItem("name", myUser);
   };
   return (
-    <div className="d-flex justify-content-center container">
-      <div className="w-75">
-        <FormCreate addTweet={addTweet} />
-        <TweetList tweetList={tweetList} />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NavBar />}>
+          <Route
+            index
+            element={
+              <HomePage
+                addTweet={addTweet}
+                onOff={onOff}
+                list={tweetList}
+                userName={myName}
+              />
+            }
+          />
+          <Route
+            path="profile"
+            element={<UserPage getMyUserName={getMyUserName} />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
