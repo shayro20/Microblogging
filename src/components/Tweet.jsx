@@ -15,8 +15,8 @@ const Tweet = ({post}) => {
         style={{color: "#6C757D"}}
         className="d-flex justify-content-between px-3 pt-3"
       >
-        <span>{post.userName}</span>
-        <span>{post.date}</span>
+        <span className="tweetStyle">{post.userName}</span>
+        <span className="tweetStyle">{post.date}</span>
       </div>
       <p className="px-3 mt-1">{post.content}</p>
     </div>

@@ -11,3 +11,6 @@ html body {
   box-shadow: none !important;
   border-color: white;
 }
+.tweetStyle{
+  word-break: break-all;
+}
