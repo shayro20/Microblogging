@@ -6,25 +6,28 @@ import HomePage from "./HomePage";
 import UserPage from "./UserPage";
 import axios from "axios";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import BlogContext from "../libs/BlogContext";
 
 const App = () => {
+  const url =
+    "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet";
   const [myName, setMyName] = useState(() => {
     const user = localStorage.getItem("name");
     return user;
   });
-
-  const url =
-    "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet";
   const [onOff, setOnOff] = useState(false);
   const [tweetList, setTweetList] = useState([]);
+
   const addTweet = async (newTweet) => {
-    await setOnOff(true);
+    setOnOff(true);
     try {
       await axios.post(url, newTweet);
+      const posts = [newTweet, ...tweetList];
+      setTweetList(posts);
     } catch (error) {
       console.log(error);
     }
-    getTweet();
+    setOnOff(false);
   };
   const getTweet = async () => {
     try {
@@ -37,36 +40,30 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("called");
     setOnOff(true);
     getTweet();
+    setInterval(() => {
+      getTweet();
+    }, 10000);
   }, []);
   const getMyUserName = (myUser) => {
     setMyName(myUser);
     localStorage.setItem("name", myUser);
   };
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<NavBar />}>
-          <Route
-            index
-            element={
-              <HomePage
-                addTweet={addTweet}
-                onOff={onOff}
-                list={tweetList}
-                userName={myName}
-              />
-            }
-          />
-          <Route
-            path="profile"
-            element={<UserPage getMyUserName={getMyUserName} />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <BlogContext.Provider
+      value={{onOff, addTweet, tweetList, myName, getMyUserName}}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<NavBar />}>
+            <Route index element={<HomePage />} />
+            <Route path="profile" element={<UserPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </BlogContext.Provider>
   );
 };
 

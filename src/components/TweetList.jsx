@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import Tweet from "./Tweet";
-
-const TweetList = ({list}) => {
+import BlogContext from "../libs/BlogContext";
+const TweetList = () => {
+  const {tweetList} = useContext(BlogContext);
   return (
     <div className="mt-4">
-      {list.map((post) => {
+      {tweetList.map((post) => {
         return <Tweet key={post.id} post={post} />;
       })}
     </div>

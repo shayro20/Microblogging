@@ -1,12 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import TextareaAutosize from "react-textarea-autosize";
 import {nanoid} from "nanoid";
+import BlogContext from "../libs/BlogContext";
 
-const FormCreate = ({addTweet, onOff, userName}) => {
+const FormCreate = () => {
+  const {onOff, addTweet, myName} = useContext(BlogContext);
   const [tweetInput, setTweetInput] = useState("");
-  console.log(userName);
   const handleTextChange = (e) => {
     setTweetInput(e.target.value);
   };
@@ -17,7 +18,7 @@ const FormCreate = ({addTweet, onOff, userName}) => {
     addTweet({
       content: tweetInput,
       date: changeDate,
-      userName,
+      userName: myName,
       id: nanoid(),
     });
   };

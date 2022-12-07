@@ -1,7 +1,11 @@
-import {React, useState} from "react";
+import {React, useState, useContext} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-const UserPage = ({getMyUserName}) => {
+import BlogContext from "../libs/BlogContext";
+
+const UserPage = () => {
+  const {getMyUserName} = useContext(BlogContext);
+  console.log(getMyUserName)
   const [userName, setUserName] = useState("");
   const handleChange = (e) => {
     setUserName(e.target.value);
