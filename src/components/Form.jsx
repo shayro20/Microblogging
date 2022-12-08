@@ -4,9 +4,10 @@ import Button from "react-bootstrap/Button";
 import TextareaAutosize from "react-textarea-autosize";
 import {nanoid} from "nanoid";
 import BlogContext from "../libs/BlogContext";
+import Alert from "react-bootstrap/Alert";
 
 const FormCreate = () => {
-  const {onOff, addTweet, myName} = useContext(BlogContext);
+  const {onOff, addTweet, myName, error} = useContext(BlogContext);
   const [tweetInput, setTweetInput] = useState("");
   const handleTextChange = (e) => {
     setTweetInput(e.target.value);
@@ -53,6 +54,9 @@ const FormCreate = () => {
             </div>
           )}
         </div>
+        <Alert hidden={error} key={`danger`} variant={`danger`}>
+          Server Error :(
+        </Alert>
         <div hidden={!onOff} className="spinner-grow text-light" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>

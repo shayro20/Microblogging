@@ -5,7 +5,6 @@ import BlogContext from "../libs/BlogContext";
 
 const UserPage = () => {
   const {getMyUserName} = useContext(BlogContext);
-  console.log(getMyUserName)
   const [userName, setUserName] = useState("");
   const handleChange = (e) => {
     setUserName(e.target.value);

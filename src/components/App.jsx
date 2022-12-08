@@ -17,14 +17,17 @@ const App = () => {
   });
   const [onOff, setOnOff] = useState(false);
   const [tweetList, setTweetList] = useState([]);
+  const [error, setError]=useState(true)
 
   const addTweet = async (newTweet) => {
+    setError(true)
     setOnOff(true);
     try {
       await axios.post(url, newTweet);
       const posts = [newTweet, ...tweetList];
       setTweetList(posts);
     } catch (error) {
+      setError(false)
       console.log(error);
     }
     setOnOff(false);
@@ -33,7 +36,9 @@ const App = () => {
     try {
       const response = await axios.get(url);
       setTweetList(response.data.tweets);
+      setError(true)
     } catch (error) {
+      setError(false)
       console.log(error);
     }
     setOnOff(false);
@@ -53,7 +58,7 @@ const App = () => {
 
   return (
     <BlogContext.Provider
-      value={{onOff, addTweet, tweetList, myName, getMyUserName}}
+      value={{onOff, addTweet, tweetList, myName, getMyUserName,error}}
     >
       <BrowserRouter>
         <Routes>
