@@ -1,14 +1,5 @@
-import React, {useContext, useState} from "react";
-import BlogContext from "../libs/BlogContext";
-import {
-  collection,
-  addDoc,
-  orderBy,
-  doc,
-  setDoc,
-  getDoc,
-} from "firebase/firestore";
-import {auth} from "../libs/firebase";
+import React, {useState} from "react";
+import {doc, getDoc} from "firebase/firestore";
 import db from "../libs/firebase";
 
 const Tweet = ({post}) => {
