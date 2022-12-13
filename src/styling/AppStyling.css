@@ -9,8 +9,22 @@ html body {
 .inputstyle:focus {
   outline: none !important;
   box-shadow: none !important;
-  border-color: white;
+  border-color: #fff;
 }
-.tweetStyle{
+.tweetStyle {
   word-break: break-all;
+}
+.user-form {
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 10%;
+}
+.user-form input {
+  background-color: #15202b;
+  color: #fff;
+  font-weight: 100%;
+}
+.user-form input:focus-visible {
+  background-color: #15202b;
+  color: #fff;
 }

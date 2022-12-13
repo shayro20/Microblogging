@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import BlogContext from "../libs/BlogContext";
 
 const UserPage = () => {
-  const {getMyUserName} = useContext(BlogContext);
+  const {getMyUserName, saveUser, fetchUserName} = useContext(BlogContext);
   const [userName, setUserName] = useState("");
   const handleChange = (e) => {
     setUserName(e.target.value);
@@ -12,6 +12,8 @@ const UserPage = () => {
   const handleSubmitt = (e) => {
     e.preventDefault();
     getMyUserName(userName);
+    saveUser(userName);
+    fetchUserName();
   };
   return (
     <div

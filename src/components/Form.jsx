@@ -2,12 +2,11 @@ import React, {useState, useContext} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import TextareaAutosize from "react-textarea-autosize";
-import {nanoid} from "nanoid";
 import BlogContext from "../libs/BlogContext";
 import Alert from "react-bootstrap/Alert";
 
 const FormCreate = () => {
-  const {onOff, addTweet, myName, error} = useContext(BlogContext);
+  const {onOff, addTweet, error} = useContext(BlogContext);
   const [tweetInput, setTweetInput] = useState("");
   const handleTextChange = (e) => {
     setTweetInput(e.target.value);
@@ -19,8 +18,7 @@ const FormCreate = () => {
     addTweet({
       content: tweetInput,
       date: changeDate,
-      userName: myName,
-      id: nanoid(),
+      
     });
   };
   return (
@@ -31,6 +29,7 @@ const FormCreate = () => {
     >
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <TextareaAutosize
+          required
           maxLength={141}
           onChange={handleTextChange}
           className="my-2 mx-3"
