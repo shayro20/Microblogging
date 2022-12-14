@@ -83,7 +83,12 @@ function SignUp() {
             <Button variant="primary" type="submit">
               {form ? "SignUp" : "LogIn"}
             </Button>
-            <Button onClick={() => signInWithPopup(auth, provider)}>
+            <Button
+              onClick={async () => {
+                await signInWithPopup(auth, provider);
+                nav("/");
+              }}
+            >
               Google
             </Button>
             <Button onClick={changeForm} variant="secondary" type="submit">
